@@ -16,7 +16,7 @@
 		<property name="location" value="classpath:META-INF/config.properties" />
 	</bean>	
  	<mvc:view-controller path="/" view-name="index" />
-    
+    <mvc:view-controller path="/help" view-name="help" />
       
  	<context:component-scan base-package="iform"/>
 	 

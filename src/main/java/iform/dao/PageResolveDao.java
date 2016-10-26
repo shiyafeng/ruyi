@@ -33,7 +33,13 @@ public class PageResolveDao {
 				"select count(*) from formdef where projectid=" + project + " and pid=" + pid, Integer.class);
 		return c > 0 ? true : false;
 	}
-
+	
+	public boolean createdName(String path, int project) {
+		int c = jdbcTemplate.queryForObject(
+				"select count(*) from formdef where projectid=" + project + " and path='" + path+"'", Integer.class);
+		return c > 0 ? true : false;
+	}
+	
 	public String getPath(int pid, int project) {
 		List<Map<String, Object>> list = jdbcTemplate
 				.queryForList("select path from formdef where projectid=" + project + " and pid=" + pid);

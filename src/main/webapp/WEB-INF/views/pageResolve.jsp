@@ -4,7 +4,7 @@
 <head>
  <script src="<%=request.getContextPath()%>/resources/echarts.common.min.js"></script>
  <script src="<%=request.getContextPath()%>/resources/jquery-1.11.0.min.js"></script>
- 
+ <link rel="shortcut icon" href="<%=request.getContextPath()%>/resources/images/favicon.ico"/>
  <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/easydropdown/themes/easydropdown.css" />
  <script type="text/javascript" src="<%=request.getContextPath()%>/resources/easydropdown/jquery.easydropdown.min.js"></script>
  <link href="<%=request.getContextPath()%>/resources/form.css" rel="stylesheet" type="text/css" />
@@ -40,7 +40,7 @@
  
  </div>
 
- <div id="opener" style="z-index:99;display:none;top:100px;left:100px;border:solid 8px #a2a2a2;border-radius:7px;position:absolute;height:300px;width:363px;">
+ <div id="opener" style="z-index:999;display:none;top:100px;left:100px;border:solid 8px #a2a2a2;border-radius:7px;position:absolute;height:300px;width:363px;">
  <div class="opener_header"><div class="opener_header_title"></div><div class="close_small4jsp"></div></div>
  <iframe src="" scrolling="no" style="height:268px;width:100%;border:0px"></iframe>
  </div>
@@ -278,7 +278,7 @@ function init(){
 						    url:context+"/ds/singleValue",
 					        type:"post",
 							data:{ds:json[o].event.init.ds,
-						    projectname:location.toString().replace(/.+ublic\/(.+)\/.+/gi,"$1"),
+						    projectname:location.toString().replace(/.+ublic\/(.+?)\/.+/gi,"$1"),
 						    sql:sql},
 							success:function(data){
 						   $textarea.val(data);
@@ -401,7 +401,7 @@ function init(){
 							    url:context+"/ds/singleValue",
 						        type:"post",
 								data:{ds:json[$(this).attr("id")].valid.ds,
-							    projectname:location.toString().replace(/.+ublic\/(.+)\/.+/gi,"$1"),
+							    projectname:location.toString().replace(/.+ublic\/(.+?)\/.+/gi,"$1"),
 							    sql:sql},
 								success:function(data){
 								var codeArr=new Array();	
@@ -509,7 +509,7 @@ function init(){
 							    url:context+"/ds/singleValue",
 						        type:"post",
 								data:{ds:json[o].event.init.ds,
-							    projectname:location.toString().replace(/.+ublic\/(.+)\/.+/gi,"$1"),
+							    projectname:location.toString().replace(/.+ublic\/(.+?)\/.+/gi,"$1"),
 							    sql:sql},
 								success:function(data){
 							   $time.val(data);
@@ -650,7 +650,7 @@ function init(){
 						    url:context+"/ds/singleValue",
 					        type:"post",
 							data:{ds:json[o].event.init.ds,
-						    projectname:location.toString().replace(/.+ublic\/(.+)\/.+/gi,"$1"),
+						    projectname:location.toString().replace(/.+ublic\/(.+?)\/.+/gi,"$1"),
 						    sql:sql},
 							success:function(data){
 						   $text.val(data);
@@ -772,7 +772,7 @@ function init(){
 							    url:context+"/ds/singleValue",
 						        type:"post",
 								data:{ds:json[$(this).attr("id")].valid.ds,
-							    projectname:location.toString().replace(/.+ublic\/(.+)\/.+/gi,"$1"),
+							    projectname:location.toString().replace(/.+ublic\/(.+?)\/.+/gi,"$1"),
 							    sql:sql},
 								success:function(data){
 								var codeArr=new Array();	
@@ -896,7 +896,7 @@ function init(){
 							    url:context+"/ds/singleValue",
 						        type:"post",
 								data:{ds:json[o].event.init.ds,
-							    projectname:location.toString().replace(/.+ublic\/(.+)\/.+/gi,"$1"),
+							    projectname:location.toString().replace(/.+ublic\/(.+?)\/.+/gi,"$1"),
 							    sql:sql},
 								success:function(data){
 								window.um.setContent(data,false); 
@@ -1003,7 +1003,7 @@ function init(){
 					    url:context+"/ds/keyValue",
 				        type:"post",
 						data:{ds:json[o].event.init2.ds,
-					    projectname:location.toString().replace(/.+ublic\/(.+)\/.+/gi,"$1"),
+					    projectname:location.toString().replace(/.+ublic\/(.+?)\/.+/gi,"$1"),
 					    sql: sql},
 						success:function(data){
 						 var s="";  
@@ -1056,7 +1056,7 @@ function init(){
 							    url:context+"/ds/multValue",
 						        type:"post",
 								data:{ds:json[o].event.init.ds,
-							    projectname:location.toString().replace(/.+ublic\/(.+)\/.+/gi,"$1"),
+							    projectname:location.toString().replace(/.+ublic\/(.+?)\/.+/gi,"$1"),
 							    sql:sql},
 								success:function(data){
 									   for(var i in data){
@@ -1162,7 +1162,7 @@ function init(){
 				    url:context+"/ds/keyValue",
 			        type:"post",
 					data:{ds:json[o].event.init2.ds,
-				    projectname:location.toString().replace(/.+ublic\/(.+)\/.+/gi,"$1"),
+				    projectname:location.toString().replace(/.+ublic\/(.+?)\/.+/gi,"$1"),
 				    sql: sql},
 					success:function(data){
 						var s=""; 
@@ -1237,7 +1237,7 @@ function init(){
 						    url:context+"/ds/singleValue",
 					        type:"post",
 							data:{ds:json[o].event.init.ds,
-						    projectname:location.toString().replace(/.+ublic\/(.+)\/.+/gi,"$1"),
+						    projectname:location.toString().replace(/.+ublic\/(.+?)\/.+/gi,"$1"),
 						    sql:sql},
 							success:function(data){
 								     $radio.parent().next().val(data);
@@ -1372,7 +1372,7 @@ function init(){
 				    url:context+"/ds/keyValue",
 			        type:"post",
 					data:{ds:json[o].event.init2.ds,
-				    projectname:location.toString().replace(/.+ublic\/(.+)\/.+/gi,"$1"),
+				    projectname:location.toString().replace(/.+ublic\/(.+?)\/.+/gi,"$1"),
 				    sql: sql},
 					success:function(data){
 						var s=""; 
@@ -1387,9 +1387,9 @@ function init(){
 				
 			 $("body").append($select);
 			 $("#"+o).easyDropDown({cutOff: 10});
-			 $select.css("left",json[o].style.x+"px");
+			 $select.css("left",json[o].style.x-10+"px");
 			 $select.css("top",json[o].style.y+"px");
-			 $select.children(".dropdown").css("width",json[o].style.w*0.86+"px");
+			 $select.children(".dropdown").css("width",json[o].style.w*0.83+"px");
 			 $select.children(".dropdown").css("height",json[o].style.h*0.4+"px");
 			 $select.children(".dropdown").css("border-width",json[o].style.borderWidth+"px");
 			 $select.children(".dropdown").css("border-color","#"+json[o].style.borderColor);
@@ -1498,7 +1498,7 @@ function init(){
 							    url:context+"/ds/singleValue",
 						        type:"post",
 								data:{ds:json[o].event.init.ds,
-							    projectname:location.toString().replace(/.+ublic\/(.+)\/.+/gi,"$1"),
+							    projectname:location.toString().replace(/.+ublic\/(.+?)\/.+/gi,"$1"),
 							    sql:sql},
 								success:function(data){
 								$select.find("select").easyDropDown("select",data);
@@ -1602,7 +1602,7 @@ function init(){
 							    url:context+"/ds/singleValue",
 						        type:"post",
 								data:{ds:json[o].event.init.ds,
-							    projectname:location.toString().replace(/.+ublic\/(.+)\/.+/gi,"$1"),
+							    projectname:location.toString().replace(/.+ublic\/(.+?)\/.+/gi,"$1"),
 							    sql:sql},
 								success:function(data){
 							   $password.val(data);
@@ -1730,7 +1730,7 @@ function init(){
 								    url:context+"/ds/singleValue",
 							        type:"post",
 									data:{ds:json[$(this).attr("id")].valid.ds,
-								    projectname:location.toString().replace(/.+ublic\/(.+)\/.+/gi,"$1"),
+								    projectname:location.toString().replace(/.+ublic\/(.+?)\/.+/gi,"$1"),
 								    sql:sql},
 									success:function(data){
 									var codeArr=new Array();	
@@ -2249,7 +2249,7 @@ function nativeParse(o,e){
 						 if(sx.indexOf("select ")==-1) uri="execDML";
 						 finalRows.push('$.ajax({async:false,url:context+"/ds/'+uri+'",type:"post",');
 						 finalRows.push('data:{ds:JSON.parse(\''+v+'\').ds,');
-						 finalRows.push('\nprojectname:location.toString().replace(/.+ublic\\/(.+)\\/.+/gi,"$1"),\n');
+						 finalRows.push('\nprojectname:location.toString().replace(/.+ublic\\/(.+?)\\/.+/gi,"$1"),\n');
 						 finalRows.push('sql:"'+sx+'"},success:function(data){ window.um.setContent(data,false);}});');
 					 
 					finalRows.push("\n");
@@ -2288,7 +2288,7 @@ function nativeParse(o,e){
 						 
 						 finalRows.push('$.ajax({async:false,url:context+"/ds/multValue",type:"post",');
 						 finalRows.push('data:{ds:JSON.parse(\''+v+'\').ds,');
-						 finalRows.push('\nprojectname:location.toString().replace(/.+ublic\\/(.+)\\/.+/gi,"$1"),\n');
+						 finalRows.push('\nprojectname:location.toString().replace(/.+ublic\\/(.+?)\\/.+/gi,"$1"),\n');
 						 finalRows.push('sql:"'+sx+'"},success:function(data){');
 						   
 						    finalRows.push("for(var i=0;i<data.length;i++){");
@@ -2380,7 +2380,7 @@ function nativeParse(o,e){
 						 if(sx.indexOf("select ")==-1) uri="execDML";
 						 finalRows.push('$.ajax({async:false,url:context+"/ds/'+uri+'",type:"post",');
 						 finalRows.push('data:{ds:JSON.parse(\''+v+'\').ds,');
-						 finalRows.push('\nprojectname:location.toString().replace(/.+ublic\\/(.+)\\/.+/gi,"$1"),\n');
+						 finalRows.push('\nprojectname:location.toString().replace(/.+ublic\\/(.+?)\\/.+/gi,"$1"),\n');
 						 finalRows.push('sql:"'+sx+'"},success:function(data){');
 						  
 						 finalRows.push('$("#'+s[1]+'").siblings(".radio_item").each(function(){if($(this).attr("value")==data) $(this).addClass("radio_item_click");});\n');
@@ -2467,7 +2467,7 @@ function nativeParse(o,e){
 							 if(sx.indexOf("select ")==-1) uri="execDML";
 							 finalRows.push('$.ajax({async:false,url:context+"/ds/'+uri+'",type:"post",');
 							 finalRows.push('data:{ds:JSON.parse(\''+v+'\').ds,');
-							 finalRows.push('\nprojectname:location.toString().replace(/.+ublic\\/(.+)\\/.+/gi,"$1"),\n');
+							 finalRows.push('\nprojectname:location.toString().replace(/.+ublic\\/(.+?)\\/.+/gi,"$1"),\n');
 							 finalRows.push('sql:"'+sx+'"},success:function(data){ $("#'+s[1]+'").easyDropDown("select",data);}});');
 						 
 						finalRows.push("\n");
@@ -2551,7 +2551,7 @@ function nativeParse(o,e){
 				 
 					 finalRows.push('$.ajax({async:false,url:context+"/ds/'+uri+'",type:"post",');
 					 finalRows.push('data:{ds:JSON.parse(\''+v+'\').ds,');
-					 finalRows.push('\nprojectname:location.toString().replace(/.+ublic\\/(.+)\\/.+/gi,"$1"),\n');
+					 finalRows.push('\nprojectname:location.toString().replace(/.+ublic\\/(.+?)\\/.+/gi,"$1"),\n');
 					 finalRows.push('sql:"'+sx+'"},success:function(data){ $("#'+s[1]+'").val(data);}});');
 				 
 				finalRows.push("\n");

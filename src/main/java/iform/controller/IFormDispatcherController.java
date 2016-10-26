@@ -67,6 +67,14 @@ public class IFormDispatcherController {
 
 		return "form";
 	}
+	
+	@RequestMapping("http")
+	@ResponseBody
+	public String remote() {
+
+		return "<info><code>U130323</code><name>张三</name></info>";
+	}
+	
 
 	@RequestMapping("/public/{project}/{path}/{ver}")
 	public String path(@PathVariable("project") String project, @PathVariable("path") String path,@PathVariable("ver") int ver, Model mod) {
@@ -106,6 +114,13 @@ public class IFormDispatcherController {
 	public boolean created(int pid, int project) {
 
 		return pageResolveDao.created(pid, project);
+	}
+	
+	@RequestMapping("createdName")
+	@ResponseBody
+	public boolean createdName(String path, int project) {
+
+		return pageResolveDao.createdName(path, project);
 	}
 	
 	@RequestMapping("getMaxPID")

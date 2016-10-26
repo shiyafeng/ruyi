@@ -3,7 +3,7 @@
 <html>
 <head>
 <title>如意-在线表单设计器</title>
-
+<link rel="shortcut icon" href="<%=request.getContextPath()%>/resources/images/favicon.ico"/>
 <script src="<%=request.getContextPath()%>/resources/echarts.common.min.js"></script>
 <script src="<%=request.getContextPath()%>/resources/jquery-1.11.0.min.js"></script>
 <script src="<%=request.getContextPath()%>/resources/jquery-ui.min.js"></script>
@@ -201,37 +201,31 @@ var ver="<%=request.getParameter("ver")%>";
   $(".right_menu>.right_menu_child").click(function(){
 	  $(".scratch_editor").html("");
 	  
-	  if(sid.indexOf("ueditor_")!=-1){
-  
+	  if(sid.indexOf("ueditor_")!=-1){ 
 		  $("#ueditor_init .kv_panel").empty();  
 		  $("#ueditor_init .kv_panel").html('<div style="height:18px;width:390px; background-color:#A2A2A2; "><div style="padding-left:5px;height:18px;width:110px;float:left;color:#191919;border:solid 0px #191919; border-right-width:1px;border-bottom-width:1px;  ">键</div><div style="padding-left:5px;height:18px;width:268px;float:left; color:#191919;border:solid 0px #191919; border-bottom-width:1px;">值</div></div>');  
 		  
 		  $("#ueditor_init .text_static_data:eq(0)").val("");
 		  $("#ueditor_init .text_static_data:eq(1)").val("");
 		  $("#ueditor_init .text_static_data:eq(2)").val("");
-		  $("#ueditor_init .event_ds").easyDropDown("select",0);
- 
+		  $("#ueditor_init .event_ds").easyDropDown("select",0); 
 		  $("#ueditor_init .text_static_data:eq(3)").val("");
 		  $("#ueditor_init .schema_ds").easyDropDown("select",0);
-		  $("#ueditor_init .text_static_data:last").val("");
-		 
-		  
-		  $("#ueditor_init .text_static_data:eq(0)").val(elements[sid].event.init.initValue);
-	 
+		  $("#ueditor_init .text_static_data:last").val(""); 
+		  $("#ueditor_init .text_static_data:eq(0)").val(elements[sid].event.init.initValue); 
 		  $("#ueditor_init .text_static_data:eq(1)").val(elements[sid].event.init.sql); 
 		  if(elements[sid].event.init.ds)
 	      $("#ueditor_init .event_ds").easyDropDown("select",elements[sid].event.init.ds);
 	 	  $("#ueditor_init .text_static_data:eq(2)").val(elements[sid].event.init.httpURL);
 	 	  if(elements[sid].event.init.httpmethod)
 	      $("#ueditor_init .schema_ds").easyDropDown("select",elements[sid].event.init.httpmethod);
-	     
 		  $("#ueditor_init .text_static_data:last").val(elements[sid].event.init.httpReturn);
-			$("#ueditor_init .typeofmsg .radio_item").removeClass("radio_item_click");
+	 
 			if(elements[sid].event.init.valueType=="value"){
-				$("#ueditor_init .typeofmsg .radio_item:last").addClass("radio_item_click");
+				$("#ueditor_init .typeofmsg .radio_item:last").click();
 				$("#ueditor_init .text_static_data:eq(3)").val(elements[sid].event.init.value);
 			}else{
-				$("#ueditor_init .typeofmsg .radio_item:first").addClass("radio_item_click");
+				$("#ueditor_init .typeofmsg .radio_item:first").click();
 				for(var k in elements[sid].event.init.kvPair){
  			var o=$('<div class="kv_row" ondblclick="toggleSelect(this)"><div class="k_column"><input type="text" class="k_input" value="'+k+'"></div><div class="v_column"><input type="text" value="" class="v_input"></div></div>');
             $("#ueditor_init .kv_panel").append(o);
@@ -249,18 +243,16 @@ var ver="<%=request.getParameter("ver")%>";
 		  $("#time_init .text_static_data:eq(0)").val("");
 		  $("#time_init .text_static_data:eq(1)").val("");
 		  $("#time_init .text_static_data:eq(2)").val("");
-		  $("#time_init .event_ds").easyDropDown("select",0);
- 
+		  $("#time_init .event_ds").easyDropDown("select",0); 
 		  $("#time_init .text_static_data:eq(3)").val("");
 		  $("#time_init .schema_ds").easyDropDown("select",0);
 		  $("#time_init .text_static_data:last").val("");
-		   $("#time_init .time_radio .radio_item").removeClass("radio_item_click");
- 
-		 if(!elements[sid].event.init.isNow){
+		  $("#time_init .time_radio .radio_item").removeClass("radio_item_click");
+		 if(!elements[sid].event.init.isNow)
 			 $("#time_init .time_radio .radio_item:first").addClass("radio_item_click");
-		 }else{
+		  else 
 			 $("#time_init .time_radio .radio_item:last").addClass("radio_item_click");
-		 }
+		  
 		  
 		  $("#time_init .text_static_data:eq(0)").val(elements[sid].event.init.fmt);
 	 
@@ -272,12 +264,12 @@ var ver="<%=request.getParameter("ver")%>";
 	      $("#time_init .schema_ds").easyDropDown("select",elements[sid].event.init.httpmethod);
 	     
 		  $("#time_init .text_static_data:last").val(elements[sid].event.init.httpReturn);
-			$("#time_init .typeofmsg .radio_item").removeClass("radio_item_click");
+			 
 			if(elements[sid].event.init.valueType=="value"){
-				$("#time_init .typeofmsg .radio_item:last").addClass("radio_item_click");
+				$("#time_init .typeofmsg .radio_item:last").click();
 				$("#time_init .text_static_data:eq(3)").val(elements[sid].event.init.value);
 			}else{
-				$("#time_init .typeofmsg .radio_item:first").addClass("radio_item_click");
+				$("#time_init .typeofmsg .radio_item:first").click();
 				for(var k in elements[sid].event.init.kvPair){
  			var o=$('<div class="kv_row" ondblclick="toggleSelect(this)"><div class="k_column"><input type="text" class="k_input" value="'+k+'"></div><div class="v_column"><input type="text" value="" class="v_input"></div></div>');
             $("#time_init .kv_panel").append(o);
@@ -298,48 +290,32 @@ var ver="<%=request.getParameter("ver")%>";
 		  $(".button_event_panel").slideDown("fast");
 	  }
 	  if(sid.indexOf("img_")!=-1){
-		  if(elements[sid].event.click.script){
-				 
-				 loadFromFela(elements[sid].event.click.script,"#img_click");
+		  if(elements[sid].event.click.script)   loadFromFela(elements[sid].event.click.script,"#img_click");
 			 
-			 }
 		  $(".img_event_panel").slideDown("fast");
 	  }
 	  if(sid.indexOf("checkbox_")!=-1){
 		  
 		  $(".checkbox_event_panel .event_item:first").click();
-		  if(elements[sid].event.click.script){
-				 
+		  if(elements[sid].event.click.script) 
 				 loadFromFela(elements[sid].event.click.script,"#checkbox_click");
-			 
-			 }
+			  
 	   
 		  $("#checkbox_init2 .kv_panel2").empty();
 		  $("#checkbox_init2 .kv_panel2").html('<div style="height:18px;width:390px; background-color:#A2A2A2; "><div style="padding-left:5px;height:18px;width:110px;float:left;color:#191919;border:solid 0px #191919; border-right-width:1px;border-bottom-width:1px;  ">内容</div><div style="padding-left:5px;height:18px;width:268px;float:left; color:#191919;border:solid 0px #191919; border-bottom-width:1px;">  值</div></div>');
-	 	  
 		  $("#checkbox_sqlselect").val("");
 		  $("#checkbox_init .text_static_data:eq(0)").val("");
-		  $("#checkbox_init .text_static_data:eq(1)").val("");
- 
+		  $("#checkbox_init .text_static_data:eq(1)").val(""); 
 		  $("#checkbox_init .event_ds").easyDropDown("select",0);
-		  $("#checkbox_init2 .event_ds").easyDropDown("select",0);
- 
-		  $("#checkbox_init .schema_ds").easyDropDown("select",0);
- 
-		 
-		  
-		  $("#checkbox_init .text_static_data:eq(0)").val(elements[sid].event.init.initValue);
-	 
+		  $("#checkbox_init2 .event_ds").easyDropDown("select",0); 
+		  $("#checkbox_init .schema_ds").easyDropDown("select",0); 
+		  $("#checkbox_init .text_static_data:eq(0)").val(elements[sid].event.init.initValue); 
 		  $("#checkbox_init .text_static_data:eq(1)").val(elements[sid].event.init.sql); 
 		  if(elements[sid].event.init.ds)
-	      $("#checkbox_init .event_ds").easyDropDown("select",elements[sid].event.init.ds);
-   
-			for(var k in elements[sid].event.init2.kvPair){
-			 
-		 	 $("#checkbox_init2 .kv_panel2").append('<div class="kv_row" ondblclick="toggleSelect(this)"><div class="k_column"><input type="text" class="k_input" value="'+k+'"></div><div class="v_column"><input type="text" value="'+elements[sid].event.init2.kvPair[k]+'" class="v_input"></div></div>');
-							
-					}
-			  
+	      $("#checkbox_init .event_ds").easyDropDown("select",elements[sid].event.init.ds); 
+			for(var k in elements[sid].event.init2.kvPair) 
+			 $("#checkbox_init2 .kv_panel2").append('<div class="kv_row" ondblclick="toggleSelect(this)"><div class="k_column"><input type="text" class="k_input" value="'+k+'"></div><div class="v_column"><input type="text" value="'+elements[sid].event.init2.kvPair[k]+'" class="v_input"></div></div>');
+			 	 
 			  $("#checkbox_sqlselect").val(elements[sid].event.init2.sql); 
 			  if(elements[sid].event.init2.ds)
 		      $("#checkbox_init2 .event_ds").easyDropDown("select",elements[sid].event.init2.ds);
@@ -382,12 +358,12 @@ var ver="<%=request.getParameter("ver")%>";
 	      $("#radio_init .schema_ds").easyDropDown("select",elements[sid].event.init.httpmethod);
 	     
 		  $("#radio_init .text_static_data:last").val(elements[sid].event.init.httpReturn);
-			$("#radio_init .typeofmsg .radio_item").removeClass("radio_item_click");
+		 
 			if(elements[sid].event.init.valueType=="value"){
-				$("#radio_init .typeofmsg .radio_item:last").addClass("radio_item_click");
+				$("#radio_init .typeofmsg .radio_item:last").click();
 				$("#radio_init .text_static_data:eq(4)").val(elements[sid].event.init.value);
 			}else{
-				$("#radio_init .typeofmsg .radio_item:first").addClass("radio_item_click");
+				$("#radio_init .typeofmsg .radio_item:first").click();
 				for(var k in elements[sid].event.init.kvPair){
  			var o=$('<div class="kv_row" ondblclick="toggleSelect(this)"><div class="k_column"><input type="text" class="k_input" value="'+k+'"></div><div class="v_column"><input type="text" value="" class="v_input"></div></div>');
             $("#radio_init .kv_panel").append(o);
@@ -442,12 +418,12 @@ var ver="<%=request.getParameter("ver")%>";
 	      $("#select_init .schema_ds").easyDropDown("select",elements[sid].event.init.httpmethod);
 	     
 		  $("#select_init .text_static_data:last").val(elements[sid].event.init.httpReturn);
-			$("#select_init .typeofmsg .radio_item").removeClass("radio_item_click");
+			 
 			if(elements[sid].event.init.valueType=="value"){
-				$("#select_init .typeofmsg .radio_item:last").addClass("radio_item_click");
+				$("#select_init .typeofmsg .radio_item:last").click();
 				$("#select_init .text_static_data:eq(4)").val(elements[sid].event.init.value);
 			}else{
-				$("#select_init .typeofmsg .radio_item:first").addClass("radio_item_click");
+				$("#select_init .typeofmsg .radio_item:first").click();
 				for(var k in elements[sid].event.init.kvPair){
  			var o=$('<div class="kv_row" ondblclick="toggleSelect(this)"><div class="k_column"><input type="text" class="k_input" value="'+k+'"></div><div class="v_column"><input type="text" value="" class="v_input"></div></div>');
             $("#select_init .kv_panel").append(o);
@@ -508,12 +484,12 @@ var ver="<%=request.getParameter("ver")%>";
 		      $("#password_init .schema_ds").easyDropDown("select",elements[sid].event.init.httpmethod);
 		     
 			  $("#password_init .text_static_data:last").val(elements[sid].event.init.httpReturn);
-				$("#password_init .typeofmsg .radio_item").removeClass("radio_item_click");
+				 
 				if(elements[sid].event.init.valueType=="value"){
-					$("#password_init .typeofmsg .radio_item:last").addClass("radio_item_click");
+					$("#password_init .typeofmsg .radio_item:last").click();
 					$("#password_init .text_static_data:eq(4)").val(elements[sid].event.init.value);
 				}else{
-					$("#password_init .typeofmsg .radio_item:first").addClass("radio_item_click");
+					$("#password_init .typeofmsg .radio_item:first").click();
 					for(var k in elements[sid].event.init.kvPair){
  				var o=$('<div class="kv_row" ondblclick="toggleSelect(this)"><div class="k_column"><input type="text" class="k_input" value="'+k+'"></div><div class="v_column"><input type="text" value="" class="v_input"></div></div>');
 	            $("#password_init .kv_panel").append(o);
@@ -569,12 +545,12 @@ var ver="<%=request.getParameter("ver")%>";
       $("#text_init .schema_ds").easyDropDown("select",elements[sid].event.init.httpmethod);
      
 	  $("#text_init .text_static_data:last").val(elements[sid].event.init.httpReturn);
-		$("#text_init .typeofmsg .radio_item").removeClass("radio_item_click");
+		 
 		if(elements[sid].event.init.valueType=="value"){
-			$("#text_init .typeofmsg .radio_item:last").addClass("radio_item_click");
+			$("#text_init .typeofmsg .radio_item:last").click();
 			$("#text_init .text_static_data:eq(4)").val(elements[sid].event.init.value);
 		}else{
-			$("#text_init .typeofmsg .radio_item:first").addClass("radio_item_click");
+			$("#text_init .typeofmsg .radio_item:first").click();
 			 
 			for(var k in elements[sid].event.init.kvPair){
 			 
@@ -633,12 +609,12 @@ var ver="<%=request.getParameter("ver")%>";
       $("#textarea_init .schema_ds").easyDropDown("select",elements[sid].event.init.httpmethod);
      
 	  $("#textarea_init .text_static_data:last").val(elements[sid].event.init.httpReturn);
-		$("#textarea_init .typeofmsg .radio_item").removeClass("radio_item_click");
+	 
 		if(elements[sid].event.init.valueType=="value"){
-			$("#textarea_init .typeofmsg .radio_item:last").addClass("radio_item_click");
+			$("#textarea_init .typeofmsg .radio_item:last").click();
 			$("#textarea_init .text_static_data:eq(3)").val(elements[sid].event.init.value);
 		}else{
-			$("#textarea_init .typeofmsg .radio_item:first").addClass("radio_item_click");
+			$("#textarea_init .typeofmsg .radio_item:first").click();
 			for(var k in elements[sid].event.init.kvPair){
  		var o=$('<div class="kv_row" ondblclick="toggleSelect(this)"><div class="k_column"><input type="text" class="k_input" value="'+k+'"></div><div class="v_column"><input type="text" value="" class="v_input"></div></div>');
         $("#textarea_init .kv_panel").append(o);
@@ -806,7 +782,7 @@ var ver="<%=request.getParameter("ver")%>";
 <div style="float:left;">&nbsp;&nbsp;&nbsp;高度&nbsp;</div> <input value="700" type="text" maxlength=4  class="page_size"/>
  </div>
   <div class="css_row">
-<div style="float:left;">标题</div> <input value="ffffff" type="text"   class="page_size" style="width:160px;" />
+<div style="float:left;">标题</div> <input value="我的表单" type="text"   class="page_size" style="width:160px;" />
  
  </div>
   <div class="css_row">
@@ -3955,17 +3931,35 @@ function save(){
  
 	
 	var url=$(".path_url").val();
- 
+    var projectcode=$("#project_code").text();
 	if(/\w/.test(url)){
-		$.post(context+"/save",
-				{"project":projectid,"pid":pid,"json":JSON.stringify(elements),"path":url},
+		$(".reqaddr").html("访问地址 &nbsp;&nbsp;/public/"+projectcode+"/"+url);
+		$(".reqaddr").click(function(){
+			window.open(context+"/public/"+projectcode+"/"+url);
+			
+		});
+		
+		$.post(context+"/createdName",
+				{"project":projectid,"path":url},
 				function(data){
-					if(data==true){
-					$(".path").slideUp('fast');
-					alert("保存成功");
-					}else  alert("路径已经存在");
+					 
+			 if(data==false){
+				 $.post(context+"/save",
+							{"project":projectid,"pid":pid,"json":JSON.stringify(elements),"path":url},
+							function(data){
+								 
+								$(".path").slideUp('fast');
+								alert("保存成功");
+								 
+							});
+			 }else{
+				 alert("路径已经存在");
+			 }
 			 
 				});
+		
+		
+		
 	}else  alert("URL仅支持字母数字下划线");
  
 }
@@ -3994,6 +3988,10 @@ $(".title_event_img,.title_event").mouseover(function(){
 	$(".title_event_img").addClass("title_event_img2");
 	$(".title_event").addClass("title_page2");
 	});
+	
+$(".title_event_img,.title_event").click(function(){
+window.open(context+"/help");	 
+});
 	
 $(".title_open_img,.title_open").mouseover(function(){
 	 
@@ -6244,18 +6242,18 @@ $(this).parent().parent().slideUp("fast");
 	  });
   
   $('.typeofmsg .radio_item').click(function(e){
-	  $('.typeofmsg .radio_item').removeClass("radio_item_click");
+	   $(this).siblings().removeClass("radio_item_click");
 	   $(this).addClass("radio_item_click");
 	  if($(this).index()==0){
-		  $(".kv_panel").show();
-		  $(".kv_panel_add").show();
-		  $(".kv_panel_del").show();
-		  $(".text_panel").hide();
+		 $(this).parent().next().next().next().show();
+		 $(this).parent().next().show();
+		 $(this).parent().next().next().show();
+		 $(this).parent().next().next().next().next().hide();
 	  }else{
-		  $(".kv_panel").hide();
-		  $(".kv_panel_add").hide();
-		  $(".kv_panel_del").hide();
-		  $(".text_panel").show();
+		  $(this).parent().next().next().next().hide();
+		  $(this).parent().next().hide();
+		  $(this).parent().next().next().hide();
+		  $(this).parent().next().next().next().next().show();
 	  }
 	  
 	  });

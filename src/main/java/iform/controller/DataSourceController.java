@@ -106,7 +106,7 @@ public class DataSourceController {
  				map.put(k,new JdbcTemplate(ds));
  			}
  			manager.pool.put(project, map);
-    		 System.out.println(manager.pool);
+    		 
     	 
      }
     
