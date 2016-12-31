@@ -28,6 +28,7 @@ import org.springframework.web.context.ContextLoader;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import iform.dao.PageResolveDao;
+import iform.tools.Cypto;
 import iform.tools.SingleHttpClient;
 
 @Controller
@@ -68,11 +69,11 @@ public class IFormDispatcherController {
 		return "form";
 	}
 	
-	@RequestMapping("http")
+	@RequestMapping("/cyptoToken/{project}")
 	@ResponseBody
-	public String remote() {
-
-		return "<info><code>U130323</code><name>张三</name></info>";
+	public String cyptoToken(@PathVariable("project") Integer project) {
+	    String token =pageResolveDao.getToken(project); 
+		return new Cypto().strEnc(System.currentTimeMillis()/60000+"",token, null, null);
 	}
 	
 
@@ -133,6 +134,18 @@ public class IFormDispatcherController {
 	@ResponseBody
 	public String getPath(int pid, int project) {
 		return pageResolveDao.getPath(pid, project);
+	}
+	
+	@RequestMapping("getToken")
+	@ResponseBody
+	public String getToken(int project) {
+		return pageResolveDao.getToken(project);
+	}
+	
+	@RequestMapping("getTokenByName")
+	@ResponseBody
+	public String getTokenByName(String projectname) {
+		return pageResolveDao.getTokenByName(projectname);
 	}
 	
 	@RequestMapping("delPage")

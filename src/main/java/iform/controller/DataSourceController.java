@@ -1,11 +1,10 @@
 package iform.controller;
 
- 
+  
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +12,11 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.alibaba.druid.pool.DruidDataSource;
- 
-
+  
 import iform.dao.DataSourceDao;
 import iform.ds.DruidDataSourcesManager;
-
+ 
 @Controller
 @RequestMapping("ds")
 public class DataSourceController {
@@ -27,13 +24,16 @@ public class DataSourceController {
 	private DruidDataSourcesManager manager;
     @Autowired
    	private DataSourceDao dataSourceDao;
- 
+   
     @RequestMapping("keyValue")
     @ResponseBody
     public List<Map<String,Object>> keyValue(String projectname,String ds,String sql){
     	return manager.pool.get(dataSourceDao.getIDByName(projectname)).get(ds).queryForList(sql);
    
     }
+    
+    
+    
     
     @RequestMapping("singleValue")
     @ResponseBody

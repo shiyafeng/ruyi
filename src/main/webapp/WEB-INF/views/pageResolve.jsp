@@ -3,6 +3,7 @@
 <html>
 <head>
  <script src="<%=request.getContextPath()%>/resources/echarts.common.min.js"></script>
+  <script src="<%=request.getContextPath()%>/resources/Base64.js"></script>
  <script src="<%=request.getContextPath()%>/resources/jquery-1.11.0.min.js"></script>
  <link rel="shortcut icon" href="<%=request.getContextPath()%>/resources/images/favicon.ico"/>
  <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/easydropdown/themes/easydropdown.css" />
@@ -15,13 +16,36 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/resources/umeditor/umeditor.config.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/resources/umeditor/zh-cn.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/resources/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/resources/cypto.js"></script>
 
+<script>
+var context="<%=request.getContextPath()%>";
+var r = window.location.toString();
+r=r.substring(r.indexOf(";token=")+7);
+$.ajax({"url":context+"/getTokenByName",
+	async:false,
+	"data":{projectname:location.toString().replace(/.+ublic\/(.+?)\/.+/gi,"$1")},
+	"success":
+		function(data){ 
+		if(isNaN(strDec(r,data))){
+			location.href=context+"/noauth";
+			return ;
+		}
+		var btime=parseInt(new Date().getTime()/60000)-strDec(r,data);
+ 
+		if(btime>30){
+			location.href=context+"/outoftime";
+			return ;
+		}
+		}});
+
+ 			   
+
+</script>
 </head>
 <body>
 
 <div class="modal"></div>
-
-
  <div id="tip_alert" class="tip_demo" style="position:absolute;display:none;width:363px;">
  <div class="tip_head">提示</div>
    <div style="width:353px;height:5px"></div>
@@ -109,9 +133,9 @@ function opener(src,w,h,title,bg){
 	$("iframe").height((h-32)+"px");
 	$("#opener").css("top",parseInt($(window).scrollTop())+(parseInt($(window).height())-parseInt($("#opener").height()))/2+"px");
 	$("#opener").css("left",(parseInt($(window).width())-parseInt($("#opener").width()))/2+"px");
-	
 	$("#opener,.modal").fadeIn("fast");
 } 
+
 function show(type,obj,msg){
 	if(type=="alert"){
 		$("#face").attr("class","tipicon");
@@ -128,26 +152,25 @@ function show(type,obj,msg){
 	$("#tip_alert .tip_head").css("color","#"+obj.titlecolor);
 	$("#tip_alert .alert_ensure").css("background-color","#"+obj.okbg);
 	$("#tip_alert .alert_ensure").css("color","#"+obj.okfont);
-	
 	$("#tip_alert,.modal").fadeIn("fast");
-	
-	 
 }
+
 window.onresize=function(){
 	$("#opener").css("top",parseInt($(window).scrollTop())+(parseInt($(window).height())-parseInt($("#opener").height()))/2+"px");
 	$("#opener").css("left",(parseInt($(window).width())-parseInt($("#opener").width()))/2+"px");
 	$(".tip_demo").css("top",parseInt($(window).scrollTop())+(parseInt($(window).height())-parseInt($(".tip_demo").height()))/2+"px");
-	$(".tip_demo").css("left",(parseInt($(window).width())-parseInt($(".tip_demo").width()))/2+"px");
-	
+	$(".tip_demo").css("left",(parseInt($(window).width())-parseInt($(".tip_demo").width()))/2+"px");	
 }
  
 
 function getQuery(name) {
-    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var reg = new RegExp("(^|&)" + name + "=([^&;]*)(&|$|;)", "i");
     var r = window.location.search.substr(1).match(reg);
     if (r != null) return unescape(r[2]); return null;
     } 
-var context="<%=request.getContextPath()%>";
+ 
+   
+
 var fontDict=new Array();
 fontDict.push("微软雅黑");
 fontDict.push("宋体");
@@ -165,13 +188,10 @@ fontDict.push("Century");
 
 var json=${json};
 function init(){
- 
-	
+  
 	for(var o in json){
-		
-	 
-		if(o=="page"){
 		 
+		if(o=="page"){ 
 	    document.title=json[o].title;
 		document.body.bgColor="#"+json[o].bg;
 		}
@@ -187,7 +207,7 @@ function init(){
 			 if(json[o].style.src.indexOf(".")>1)
 			 $img.attr("src", json[o].style.src);
 			 
-		     $img.data("click",nativeParse(json[o],"click"));
+		     $img.data("click",nativeParse(o,json[o],"click"));
 	   
 	         $img.click(function(){
               eval($(this).data("click")); 
@@ -231,9 +251,9 @@ function init(){
 			 $textarea.css("background-image","url("+context+"/resources/uploadimg/"+json[o].style.backgroundImage+")");
 			 $textarea.css("padding-left",json[o].style.paddingLeft+"px");
 			 //事件
-	         $textarea.data("click",nativeParse(json[o],"click"));
+	         $textarea.data("click",nativeParse(o,json[o],"click"));
 	    
-	         $textarea.data("afterinit",nativeParse(json[o],"afterinit"));
+	         $textarea.data("afterinit",nativeParse(o,json[o],"afterinit"));
 	        
 	         setTimeout(function(){
 	        	 eval($textarea.data("afterinit")); 
@@ -243,13 +263,13 @@ function init(){
 	         
               eval($(this).data("click")); 
              });
-                $textarea.data("dblclick",nativeParse(json[o],"dblclick"));
+                $textarea.data("dblclick",nativeParse(o,json[o],"dblclick"));
             
 	        $textarea.dblclick(function(){
               eval($(this).data("dblclick")); 
              });
 	 
-          $textarea.data("focus",nativeParse(json[o],"focus"));
+          $textarea.data("focus",nativeParse(o,json[o],"focus"));
             
 	        $textarea.focus(function(){
               eval($(this).data("focus")); 
@@ -341,7 +361,7 @@ function init(){
 			}
 	        
 			 //校验
-			 var $tip=$('<div id="tip_'+o+'" style="display:none;position:absolute;border-style:solid;border-radius:5px;padding-right:6px;background-repeat:no-repeat;">'+json[o].valid.text+'</div>');
+			 var $tip=$('<div id="tip_'+o+'" style="z-index:2;display:none;position:absolute;border-style:solid;border-radius:5px;padding-right:6px;background-repeat:no-repeat;">'+json[o].valid.text+'</div>');
 			 if(json[o].valid.on==0){
 				
 				 $textarea.blur(function(){
@@ -377,7 +397,7 @@ function init(){
 					  if(!reg.test($(this).val()))
 					   $('#tip_'+ $(this).attr("id")).fadeIn();
 					  else
-						$('#tip_'+ $(this).attr("id")).fadeOut();
+						$('#tip_'+ $(this).attr("id")).hide();
 					 var _this=$(this);
 					  if(json[$(this).attr("id")].valid.sql!=""){
 						var sql=json[$(this).attr("id")].valid.sql;
@@ -385,12 +405,12 @@ function init(){
 		        			var r0=new RegExp("U\{(.+?)\}");
 			        		var r1=new RegExp("L\{(.+?)\}");
 			        		var arr0=[],arr1=[];
-			        		while(arr0=r0.exec(sql))  sql=sql.replace(arr0[0],getQuery(arr0[1]));
+			        		while(arr0=r0.exec(sql))  sql=sql.replace(arr0[0],"'"+getQuery(arr0[1])+"'");
 			        	 
 			        		while(arr1=r1.exec(sql))   
 			        		 {
 			        				if(arr1[1].indexOf("checkbox_")==-1)
-			        				sql=sql.replace(arr1[0],$("#"+arr1[1]).val());
+			        				sql=sql.replace(arr1[0],"'"+$("#"+arr1[1]).val()+"'");
 			        				else
 			        				sql=sql.replace(arr1[0],checkboxval("#"+arr1[1]));
 			        			}
@@ -595,9 +615,9 @@ function init(){
 			 $text.css("background-image","url("+context+"/resources/uploadimg/"+json[o].style.backgroundImage+")");
 			 $text.css("padding-left",json[o].style.paddingLeft+"px");
 		 //事件
-			         $text.data("click",nativeParse(json[o],"click"));
+			         $text.data("click",nativeParse(o,json[o],"click"));
 			    
-			         $text.data("afterinit",nativeParse(json[o],"afterinit"));
+			         $text.data("afterinit",nativeParse(o,json[o],"afterinit"));
 			        
 			         setTimeout(function(){
 			        	 eval($text.data("afterinit")); 
@@ -607,13 +627,13 @@ function init(){
 			         
                       eval($(this).data("click")); 
                      });
-                        $text.data("dblclick",nativeParse(json[o],"dblclick"));
+                        $text.data("dblclick",nativeParse(o,json[o],"dblclick"));
                     
 			        $text.dblclick(function(){
                       eval($(this).data("dblclick")); 
                      });
 			 
-                  $text.data("focus",nativeParse(json[o],"focus"));
+                  $text.data("focus",nativeParse(o,json[o],"focus"));
                     
 			        $text.focus(function(){
                       eval($(this).data("focus")); 
@@ -713,7 +733,7 @@ function init(){
 			}
 			
 			 //校验
-			 var $tip=$('<div id="tip_'+o+'" style="display:none;position:absolute;border-style:solid;border-radius:5px;padding-right:6px;background-repeat:no-repeat;">'+json[o].valid.text+'</div>');
+			 var $tip=$('<div id="tip_'+o+'" style="z-index:2;display:none;position:absolute;border-style:solid;border-radius:5px;padding-right:6px;background-repeat:no-repeat;">'+json[o].valid.text+'</div>');
 			 if(json[o].valid.on==0){
 				
 				 $text.blur(function(){
@@ -749,7 +769,7 @@ function init(){
 					  if(!reg.test($(this).val()))
 					   $('#tip_'+ $(this).attr("id")).fadeIn();
 					  else
-						$('#tip_'+ $(this).attr("id")).fadeOut();
+						$('#tip_'+ $(this).attr("id")).hide();
 					 var _this=$(this);
 					  if(json[$(this).attr("id")].valid.sql!=""){
 						var sql=json[$(this).attr("id")].valid.sql;
@@ -757,12 +777,12 @@ function init(){
 		        			var r0=new RegExp("U\{(.+?)\}");
 			        		var r1=new RegExp("L\{(.+?)\}");
 			        		var arr0=[],arr1=[];
-			        		while(arr0=r0.exec(sql))  sql=sql.replace(arr0[0],getQuery(arr0[1]));
+			        		while(arr0=r0.exec(sql))  sql=sql.replace(arr0[0],"'"+getQuery(arr0[1])+"'");
 			        	 
 			        		while(arr1=r1.exec(sql))  
 			        		 {
 		        				if(arr1[1].indexOf("checkbox_")==-1)
-		        				sql=sql.replace(arr1[0],$("#"+arr1[1]).val());
+		        				sql=sql.replace(arr1[0],"'"+$("#"+arr1[1]).val()+"'");
 		        				else
 		        				sql=sql.replace(arr1[0],checkboxval("#"+arr1[1]));
 		        			}
@@ -849,8 +869,8 @@ function init(){
 			 $button.css("background-image","url("+context+"/resources/uploadimg/"+json[o].style.backgroundImage+")");
 			 $button.css("padding-left",json[o].style.paddingLeft+"px");
 			 $button.val(json[o].style.text);
-		 //事件
-			         $button.data("click",nativeParse(json[o],"click"));
+		 
+			         $button.data("click",nativeParse(o,json[o],"click"));
 			     
 			        $button.click(function(){
 			         
@@ -971,7 +991,7 @@ function init(){
 		 }
 		 
 		 if(o.indexOf("checkbox_")!=-1){
-			 $checkbox=$('<div id="'+o+'" style="text-align:center;position:absolute"></div>');
+			 $checkbox=$('<div id="'+o+'" style="z-index:2;text-align:center;position:absolute"></div>');
              $checkbox.css("left",json[o].style.x+"px");
 			 $checkbox.css("top",parseInt(json[o].style.y)+8+"px");
 			 $checkbox.css("width",json[o].style.w+"px");
@@ -1017,7 +1037,7 @@ function init(){
 				 
 					}
 			 
-             $checkbox.data("click",nativeParse(json[o],"click"));
+             $checkbox.data("click",nativeParse(o,json[o],"click"));
 			 
 			 $checkbox.find(".checkbox_item").bind("click",function(){
 				 
@@ -1092,7 +1112,7 @@ function init(){
 		 
 		 if(o.indexOf("file_")!=-1){
 			  
-			 $file=$("<div style='position:absolute;background-repeat:no-repeat'> <form method='post' enctype='multipart/form-data'> <input type='hidden' id='"+o+"'> <input id='x"+o+"' type='file' name='x"+o+"'   style='opacity:0;filter:alpha(opacity=0)'></form></div>");
+			 $file=$("<div style='z-index:2;position:absolute;background-repeat:no-repeat'> <form method='post' enctype='multipart/form-data'> <input type='hidden' id='"+o+"'> <input id='x"+o+"' type='file' name='x"+o+"'   style='opacity:0;filter:alpha(opacity=0)'></form></div>");
 			 $file.css("left",json[o].style.x+"px");
 			 $file.css("top",json[o].style.y+"px");
 			 $file.find("input:last").css("width",json[o].style.w+"px");
@@ -1132,7 +1152,7 @@ function init(){
 		 }
 		 
 		 if(o.indexOf("radio_")!=-1){
-		 $radio=$('<div   style="text-align:center;position:absolute;"><input id="'+o+'" type="hidden"   value=""></div>');
+		 $radio=$('<div   style="z-index:2;text-align:center;position:absolute;"><input id="'+o+'" type="hidden"   value=""></div>');
 		 $radio.css("left",json[o].style.x+"px");
 		 $radio.css("top",parseInt(json[o].style.y)+4+"px");
 		 $radio.css("width",json[o].style.w+"px");
@@ -1179,7 +1199,7 @@ function init(){
 		 $radio.find(".radio_text").css("color","#"+json[o].style.color);
 		 $radio.find(".radio_text").css("font-family",fontDict[json[o].style.fontFamily]);
 		  
-		 $radio.data("click",nativeParse(json[o],"click"));
+		 $radio.data("click",nativeParse(o,json[o],"click"));
 		  
 		 $radio.find(".radio_item").bind("click",function(){
 			 $(this).siblings("input").val($(this).attr("value"));
@@ -1191,7 +1211,7 @@ function init(){
 		 $("body").append($radio);
 
 		   if(json[o].event.init.initValue!=""){
-			   $radio.parent().next().val(json[o].event.init.initValue);
+			   $radio.children("input").val(json[o].event.init.initValue);
 			   $radio.siblings(".radio_item").removeClass("radio_item_click");
 				 $radio.find(".radio_item").each(function(){
 					 
@@ -1206,7 +1226,7 @@ function init(){
 				var s=json[o].event.init.fromURL;
 				 
 				s=s.replace(/U\{(.+?)\}/gi,"getQuery('$1')"); 
-				   $radio.parent().next().val(eval(s));
+				  $radio.children("input").val(eval(s));
 				   $radio.siblings(".radio_item").removeClass("radio_item_click");
 					 
 					 $radio.find(".radio_item").each(function(){
@@ -1240,11 +1260,8 @@ function init(){
 						    projectname:location.toString().replace(/.+ublic\/(.+?)\/.+/gi,"$1"),
 						    sql:sql},
 							success:function(data){
-								     $radio.parent().next().val(data);
-								    
-								     $radio.siblings(".radio_item").removeClass("radio_item_click");
-									  
-								     
+								     $radio.children("input").val(data); 
+								     $radio.siblings(".radio_item").removeClass("radio_item_click");  
 									 $radio.find(".radio_item").each(function(){
 										
 									     if($(this).attr("value")==data){
@@ -1299,13 +1316,11 @@ function init(){
 	        		    msg:msg,
 					    httpURL:json[o].event.init.httpURL},
 						success:function(data){
-					 if(data.indexOf("{")!=-1){
-						 
-					    var R=JSON.parse(data); 
-					  
-					    $radio.parent().next().val(eval(json[o].event.init.httpReturn));
+					 if(data.indexOf("{")!=-1){ 
+					    var R=JSON.parse(data);  
+					    $radio.children("input").val(eval(json[o].event.init.httpReturn));
 					    $radio.siblings(".radio_item").removeClass("radio_item_click");
-						 $radio.find(".radio_item").each(function(){
+						$radio.find(".radio_item").each(function(){
 							
 						     if($(this).attr("value")==eval(json[o].event.init.httpReturn)){
 								 $(this).addClass("radio_item_click");
@@ -1313,7 +1328,7 @@ function init(){
 							});
 						 }else if(data.indexOf("<")!=-1){
 						      var R = $($.parseXML(data));
-						      $radio.parent().next().val(eval(json[o].event.init.httpReturn));
+						      $radio.children("input").val(eval(json[o].event.init.httpReturn));
 						      $radio.siblings(".radio_item").removeClass("radio_item_click");
 								 $radio.find(".radio_item").each(function(){
 									 
@@ -1323,7 +1338,7 @@ function init(){
 									});
 							 }else{
 								 
-								 $radio.parent().next().val(data);
+								 $radio.children("input").val(data);
 								 $radio.siblings(".radio_item").removeClass("radio_item_click");
 								 $radio.find(".radio_item").each(function(){
 									
@@ -1404,7 +1419,7 @@ function init(){
 			 $select.children(".dropdown").children("div").css("background-color","#"+json[o].style.backgroundColor);
 			 $select.children(".dropdown").css("background-color","#"+json[o].style.backgroundColor);
 		     
-			   $select.data("change",nativeParse(json[o],"change"));
+			   $select.data("change",nativeParse(o,json[o],"change"));
 	         
 		        $select.change(function(){
 	              eval($(this).data("change")); 
@@ -1544,9 +1559,9 @@ function init(){
 			 $password.css("background-image","url("+context+"/resources/uploadimg/"+json[o].style.backgroundImage+")");
 			 $password.css("padding-left",json[o].style.paddingLeft+"px");
 			 
-	         $password.data("click",nativeParse(json[o],"click"));
+	         $password.data("click",nativeParse(o,json[o],"click"));
 			    
-	         $password.data("afterinit",nativeParse(json[o],"afterinit"));
+	         $password.data("afterinit",nativeParse(o,json[o],"afterinit"));
 	        
 	         setTimeout(function(){
 	        	 eval($password.data("afterinit")); 
@@ -1557,13 +1572,13 @@ function init(){
               eval($(this).data("click")); 
              });
 	        
-                $password.data("dblclick",nativeParse(json[o],"dblclick"));
+                $password.data("dblclick",nativeParse(o,json[o],"dblclick"));
             
 	        $password.dblclick(function(){
               eval($(this).data("dblclick")); 
              });
 	 
-            $password.data("focus",nativeParse(json[o],"focus"));
+            $password.data("focus",nativeParse(o,json[o],"focus"));
             
 	        $password.focus(function(){
               eval($(this).data("focus")); 
@@ -1671,7 +1686,7 @@ function init(){
 		        	
 		        	
 		        	
-				 var $tip=$('<div id="tip_'+o+'" style="display:none;position:absolute;border-style:solid;border-radius:5px;padding-right:6px;background-repeat:no-repeat;">'+json[o].valid.text+'</div>');
+				 var $tip=$('<div id="tip_'+o+'" style="z-index:2;display:none;position:absolute;border-style:solid;border-radius:5px;padding-right:6px;background-repeat:no-repeat;">'+json[o].valid.text+'</div>');
 				 if(json[o].valid.on==0){
 					
 					 $password.blur(function(){
@@ -1707,7 +1722,7 @@ function init(){
 						  if(!reg.test($(this).val()))
 						   $('#tip_'+ $(this).attr("id")).fadeIn();
 						  else
-							$('#tip_'+ $(this).attr("id")).fadeOut();
+							$('#tip_'+ $(this).attr("id")).hide();
 						 var _this=$(this);
 						  if(json[$(this).attr("id")].valid.sql!=""){
 							var sql=json[$(this).attr("id")].valid.sql;
@@ -1715,12 +1730,12 @@ function init(){
 			        			var r0=new RegExp("U\{(.+?)\}");
 				        		var r1=new RegExp("L\{(.+?)\}");
 				        		var arr0=[],arr1=[];
-				        		while(arr0=r0.exec(sql))  sql=sql.replace(arr0[0],getQuery(arr0[1]));
+				        		while(arr0=r0.exec(sql))  sql=sql.replace(arr0[0],"'"+getQuery(arr0[1])+"'");
 				        	 
 				        		while(arr1=r1.exec(sql)) 
 				        		 {
 			        				if(arr1[1].indexOf("checkbox_")==-1)
-			        				sql=sql.replace(arr1[0],$("#"+arr1[1]).val());
+			        				sql=sql.replace(arr1[0],"'"+$("#"+arr1[1]).val()+"'");
 			        				else
 			        				sql=sql.replace(arr1[0],checkboxval("#"+arr1[1]));
 			        			}
@@ -1798,6 +1813,8 @@ function init(){
 }
 
 init();
+eval(utf8to16(base64decode(json.js)));
+
 $(".modal").height($(document).height());
 var  zindexArr=[];
 $("select").each(function(){
@@ -1819,14 +1836,24 @@ for(var i=0;i<zindexArr.length;i++){
 		});
 }
 
-function nativeParse(o,e){
+function nativeParse(n,o,e){
 	 var finalRows=[];
 	 var Script=o.event[e].script.split("\n");
- 
+	 var filter="";
+	 finalRows.push("var filt=true;\n");
+	 if(n.indexOf("button_")!=-1&&e=="click"){
+	 
+	  finalRows.push("$('input').blur();\n");
+	  filter+="$(\"div[id^='tip_']\").each(function(){ if($(this).css('display')=='block') filt=false; });\n";
+	  finalRows.push(filter);
+	  finalRows.push("if(!filt) throw null;\n");
+	 }
+	 
 	 for(var i=0;i<Script.length;i++){
 		 if(Script[i].indexOf("如果2 ")!=-1){
 			  var rows=Script[i].split(" ");
-              
+            
+			  
               for(var j=0;j<rows.length;j++){
             	   
             	if(rows[j]=="如果2"){
@@ -2009,8 +2036,7 @@ function nativeParse(o,e){
             		}
             		continue;
             	}
-            	console.log(finalRows.join(""));
-            	  
+ 
             	  if(rows[j]=="包含"){
             		  finalRows.push(".indexOf("); 
             		continue ;
@@ -2132,7 +2158,7 @@ function nativeParse(o,e){
 			 finalRows.push("{\n");
 		 }
 		 if(Script[i].indexOf("退出")!=-1){
-			 finalRows.push("return;\n");
+			 finalRows.push("throw null;\n");
 		 }
 		 if(Script[i].indexOf("页面刷新")!=-1){
 			 finalRows.push("history.go(0);\n");
@@ -2181,12 +2207,12 @@ function nativeParse(o,e){
 		 }
 		 
 		 if(Script[i].indexOf("赋值")==0){
-			  
+			   
 			 var s=Script[i].split(" ");
 			 var s0=Script[i].split(" ");
 			 s0.splice(0,2);
 			 var v=s0.join(" ");
-			 
+		 
 			 if(s[1].indexOf("ueditor_")==0){
 				  if(JSON.parse(v).type=="static"){
 						finalRows.push("window.um.setContent(JSON.parse('"+v+"').value,false);");
@@ -2246,7 +2272,7 @@ function nativeParse(o,e){
 						 sx=sx.replace(/L\{(ueditor.+?)\}/gi,"'\"+window.um.getContent()+\"'"); 
 						 sx=sx.replace(/L\{(.+?)\}/gi,"'\"+$('#$1').val()+\"'");
 						 var uri="singleValue";
-						 if(sx.indexOf("select ")==-1) uri="execDML";
+						 if(sx.toLowerCase().indexOf("select ")==-1) uri="execDML";
 						 finalRows.push('$.ajax({async:false,url:context+"/ds/'+uri+'",type:"post",');
 						 finalRows.push('data:{ds:JSON.parse(\''+v+'\').ds,');
 						 finalRows.push('\nprojectname:location.toString().replace(/.+ublic\\/(.+?)\\/.+/gi,"$1"),\n');
@@ -2377,7 +2403,7 @@ function nativeParse(o,e){
 						 sx=sx.replace(/L\{(ueditor.+?)\}/gi,"'\"+window.um.getContent()+\"'");
 						 sx=sx.replace(/L\{(.+?)\}/gi,"'\"+$('#$1').val()+\"'");
 						 var uri="singleValue";
-						 if(sx.indexOf("select ")==-1) uri="execDML";
+						 if(sx.toLowerCase().indexOf("select ")==-1) uri="execDML";
 						 finalRows.push('$.ajax({async:false,url:context+"/ds/'+uri+'",type:"post",');
 						 finalRows.push('data:{ds:JSON.parse(\''+v+'\').ds,');
 						 finalRows.push('\nprojectname:location.toString().replace(/.+ublic\\/(.+?)\\/.+/gi,"$1"),\n');
@@ -2464,7 +2490,7 @@ function nativeParse(o,e){
 							 sx=sx.replace(/L\{(ueditor.+?)\}/gi,"'\"+window.um.getContent()+\"'");
 							 sx=sx.replace(/L\{(.+?)\}/gi,"'\"+$('#$1').val()+\"'");
 							 var uri="singleValue";
-							 if(sx.indexOf("select ")==-1) uri="execDML";
+							 if(sx.toLowerCase().indexOf("select ")==-1) uri="execDML";
 							 finalRows.push('$.ajax({async:false,url:context+"/ds/'+uri+'",type:"post",');
 							 finalRows.push('data:{ds:JSON.parse(\''+v+'\').ds,');
 							 finalRows.push('\nprojectname:location.toString().replace(/.+ublic\\/(.+?)\\/.+/gi,"$1"),\n');
@@ -2484,7 +2510,7 @@ function nativeParse(o,e){
 						 }
 				        
 			 }
-			 if(s[1].indexOf("time_")==0||s[1].indexOf("textarea_")==0||s[1].indexOf("text_")==0||s[1].indexOf("password_")==0){
+			 if(s[1].indexOf("hidden_")==0||s[1].indexOf("time_")==0||s[1].indexOf("textarea_")==0||s[1].indexOf("text_")==0||s[1].indexOf("password_")==0){
 				 
 				 if(JSON.parse(v).type=="static"){
 				finalRows.push("$('#"+s[1]+"').val(JSON.parse('"+v+"').value);");
@@ -2547,7 +2573,7 @@ function nativeParse(o,e){
 					 sx=sx.replace(/L\{(.+?)\}/gi,"'\"+$('#$1').val()+\"'");
 					  
 					 var uri="singleValue";
-					 if(sx.indexOf("select ")==-1) uri="execDML";
+					 if(sx.toLowerCase().indexOf("select ")==-1) uri="execDML";
 				 
 					 finalRows.push('$.ajax({async:false,url:context+"/ds/'+uri+'",type:"post",');
 					 finalRows.push('data:{ds:JSON.parse(\''+v+'\').ds,');
@@ -2618,11 +2644,9 @@ function nativeParse(o,e){
 			 }
 			 finalRows.push("\n");
 		 }
-		 
-		 
-		
+		   
 	 }
-				 
+ 
 	return  finalRows.join("");
 }
  

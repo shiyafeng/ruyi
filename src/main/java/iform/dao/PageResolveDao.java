@@ -23,6 +23,17 @@ public class PageResolveDao {
 
 	}
 	
+	public String getToken(int project) {
+		return jdbcTemplate.queryForObject("select token from projectdef where id=" + project,String.class);
+
+	}
+	
+	public String getTokenByName(String projectname) {
+		return jdbcTemplate.queryForObject("select token from projectdef where code='" + projectname+"'",String.class);
+
+	}
+	
+	
 	public void delPage(int pid,int project,int ver) {
 	   jdbcTemplate.update("delete from FORMDEF where version="+ver+" and pid="+pid+" and projectid=" + project);
 

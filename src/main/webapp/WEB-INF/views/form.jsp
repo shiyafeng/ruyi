@@ -3,6 +3,7 @@
 <html>
 <head>
 <title>如意-在线表单设计器</title>
+<script src="<%=request.getContextPath()%>/resources/Base64.js"></script>
 <link rel="shortcut icon" href="<%=request.getContextPath()%>/resources/images/favicon.ico"/>
 <script src="<%=request.getContextPath()%>/resources/echarts.common.min.js"></script>
 <script src="<%=request.getContextPath()%>/resources/jquery-1.11.0.min.js"></script>
@@ -11,48 +12,41 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/resources/colorpicker/js/colorpicker.js"></script>
 <link href="<%=request.getContextPath()%>/resources/jquery-ui.min.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/easydropdown/themes/easydropdown.css" />
-<script type="text/javascript" src="<%=request.getContextPath()%>/resources/easydropdown/jquery.easydropdown.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/resources/nicescroll/jquery.nicescroll.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/resources/ajaxfileupload.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/resources/My97DatePicker/WdatePicker.js"></script>
-
+<link href="<%=request.getContextPath()%>/resources/codemirror/codemirror.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath()%>/resources/codemirror/monokai.css" rel="stylesheet" type="text/css" />
 <link href="<%=request.getContextPath()%>/resources/form.css" rel="stylesheet" type="text/css" />
-
 <link href="<%=request.getContextPath()%>/resources/umeditor/umeditor.min.css" rel="stylesheet" type="text/css" />
-
 <script type="text/javascript" src="<%=request.getContextPath()%>/resources/umeditor/umeditor.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/resources/umeditor/umeditor.config.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/resources/umeditor/zh-cn.js"></script>
-
+<script type="text/javascript" src="<%=request.getContextPath()%>/resources/easydropdown/jquery.easydropdown.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/resources/codemirror/codemirror.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/resources/codemirror/javascript.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/resources/cypto.js"></script>
 
 <script>
 var context="<%=request.getContextPath()%>";
 var pid="<%=request.getParameter("pid")%>";
 var projectid="<%=request.getParameter("project")%>";
 var ver="<%=request.getParameter("ver")%>";
-//页面id
 </script>
 </head>
-<body bgcolor="black" oncontextmenu="return false">
- 
+<body bgcolor="black" oncontextmenu="return false"> 
  <div class="topbanner">
-  <div class="form_logo">
-  </div>
-  <div class="reqaddr">
- 
+  <div class="form_logo"> </div>
+  <div class="reqaddr"> 
   </div>
  <div style="position:absolute;top:0px;left:110px;height:65px;width:900px ">
    <div class="title_open_img"></div>
-    <div class="title_open">打开</div>
-    
+    <div class="title_open">打开</div> 
        <div class="title_save_img"></div>
-        <div class="title_save">保存</div>
-        
+        <div class="title_save">保存</div> 
                <div class="title_osave_img"></div>
-                  <div class="title_osave">新版本</div>
-                  
-      <div class="title_interrupt" style="left:145px"></div>
- 
+                  <div class="title_osave">新版本</div> 
+                  <div class="title_interrupt" style="left:145px"></div>
                      <div class="title_page_img"></div>
                              <div class="title_page">页面</div>
                                 <div class="title_form_img"></div>
@@ -71,6 +65,8 @@ var ver="<%=request.getParameter("ver")%>";
                                 <div class="title_interrupt" style="left:432px;"></div>
                                 <div class="title_data_img"></div>
                                 <div class="title_data">数据源</div> 
+                                <div class="title_js_img"></div>
+                                <div class="title_js">脚本</div> 
                                 <div class="title_event_img"></div>
                                 <div class="title_event">教程</div>    
                                </div>   
@@ -78,14 +74,8 @@ var ver="<%=request.getParameter("ver")%>";
  </div>
  
 <div class="main_wrap">
-<div class="main">
-
-
-
-</div>
- </div>
-
- 
+<div class="main"></div>
+</div> 
  
  <div class="right_menu2">
  <div class="right_menu_child">
@@ -501,6 +491,7 @@ var ver="<%=request.getParameter("ver")%>";
 	  }
 	  if(sid.indexOf("text_")!=-1){
 		  $(".text_event_panel .event_item:first").click();	 
+		
 	 if(elements[sid].event.afterinit.script){
 		 
 		 loadFromFela(elements[sid].event.afterinit.script,"#text_after_init");
@@ -529,6 +520,7 @@ var ver="<%=request.getParameter("ver")%>";
 	  $("#text_init .text_static_data:eq(0)").val("");
 	  $("#text_init .text_static_data:eq(1)").val("");
 	  $("#text_init .text_static_data:eq(2)").val("");
+	 
 	  $("#text_init .event_ds").easyDropDown("select",0);
 	  $("#text_init .text_static_data:eq(3)").val("");
 	  $("#text_init .schema_ds").easyDropDown("select",0);
@@ -633,7 +625,8 @@ var ver="<%=request.getParameter("ver")%>";
   var elements=new Object();
   elements["window"]={"type":"default","topbg":"","midbg":"","bottombg":"","fontcolor":"","titlecolor":"","okbg":"","okfont":"" };
   elements["page"]={"w":"1900","h":"1200","title":"","bg":""};
- 
+  elements["js"]="";
+	  
   $(".valid_test").click(function(){
  
   if($(".rule_div .radio_item_click").index()==0){
@@ -2511,7 +2504,18 @@ SQL
  
  </div>
  
+  <div class="js_panel" style="top:-800px;left:-700px;width:650px;display:block;">
+  <div class="form_dialog_head"  >
+ <div style="padding-top:2px;float:left;">Javascript</div>
+<div class="closeImg2" ></div>
+ </div>
+ <div style=" width:642px;height:420px;font-size:13px; " id="cm">
+ </div>
+  <button onclick="saveCode()" style="width:90px;color:white;height:30px;background-color:#377BCC;border:solid 0px;;border-radius:6px">
+  保存
+ </button>
  
+ </div>
  
   <div class="path" >
   <div class="css_row">
@@ -2766,7 +2770,7 @@ SQL
  <div  id="tip" class="tip_text"  ></div>
   <div class="footer">
   <div class="gclab"></div>
-  <div class="gclab_text">国创实验室&copy;2016-2017&nbsp;&nbsp; 预览版</div>
+  <div class="gclab_text">国创实验室&copy;2016-2017&nbsp;&nbsp; 1.0.1</div>
   </div>
 <script>
 
@@ -2886,7 +2890,11 @@ $.post(context+"/getPath",
 		function(data){
 			$(".reqaddr").html("访问地址 &nbsp;&nbsp;"+data);
 			$(".reqaddr").click(function(){
-				window.open(context+data);
+	 
+				if(token!="")
+					window.open(context+data+";token="+strEnc(new Date().getTime()/60000,token,null,null));
+					else
+					window.open(context+data);
 				
 			});
 });
@@ -3562,6 +3570,19 @@ $(".kv_panel_add2").click(function(){
 	
 });
  
+var cm= CodeMirror(document.getElementById("cm"), { 
+    lineNumbers: true,
+    mode: "javascript", 
+    theme: "monokai" 
+  });
+   
+ function saveCode(){
+	 elements["js"]=base64encode(utf16to8(cm.getValue()));
+	 alert("保存成功");
+		$(".js_panel").css("top","-800px");
+		$(".js_panel").css("left","-700px");
+ }
+ 
 function setCssSelect(cssClass){
 	$(cssClass).parent().next().next().next().css("background-color","#191919");
 	$(cssClass).parent().next().next().next().css("border-width","0px");
@@ -3633,6 +3654,10 @@ $(".db").slideDown("fast");
 			function(data){
 		 
 	 var json=JSON.parse(data);
+	 if($.isEmptyObject(json)){
+		 alert("检测到您还没有配置数据源，请先配置数据源");
+		 return ;
+	 }
 	 var count=0;
 	 var html="";
 	 for(var k in json){
@@ -3755,10 +3780,7 @@ $(".db").slideDown("fast");
 function delDB(v){
 	 $(v).parents(".dataSource").remove();
 }
-
-
  
-
 function addDB(){
 	var s='<div class="dataSource"><div class="css_row">';
 	s+='<div class="db_add" onclick=addDB() ></div><div class="db_del" onclick=delDB(this)></div></div>';
@@ -3876,13 +3898,31 @@ $(".title_save_img,.title_save").mouseover(function(){
 	$(".title_save_img").addClass("title_save_img2");
 	$(".title_save").addClass("title_page2");
 	});
+$(".title_js_img,.title_js").mouseover(function(){
+	 
+	$(".title_js_img").addClass("title_js_img2");
+	$(".title_js").addClass("title_page2");
+	});
+$(".title_js_img,.title_js").click(function(){
+	 
+	$(".js_panel").css("left","320px");
+	$(".js_panel").css("top","80px");
+ 
+	});
 
+	
+$(".title_js_img,.title_js").mouseout(function(){
+	 
+	$(".title_js_img").removeClass("title_js_img2");
+	$(".title_js").removeClass("title_page2");
+	});
+	
 $(".title_save_img,.title_save").click(function(){
      var c=0;
    
 	 for(var i in elements)  c++;
  
-	if(c<3){
+	if(c<=3){
 		alert("页面内容为空，不能保存！");
 	return; 
 	}
@@ -3927,6 +3967,12 @@ $(".title_save_img,.title_save").click(function(){
   	
 });
 
+var token="";
+$.post(context+"/getToken",{"project":projectid},
+		function(data){
+			token=data;
+		});
+ 
 function save(){
  
 	
@@ -3935,8 +3981,10 @@ function save(){
 	if(/\w/.test(url)){
 		$(".reqaddr").html("访问地址 &nbsp;&nbsp;/public/"+projectcode+"/"+url);
 		$(".reqaddr").click(function(){
+			if(token!="")
+			window.open(context+"/public/"+projectcode+"/"+url+";token="+strEnc(new Date().getTime()/60000,token,null,null));
+			else
 			window.open(context+"/public/"+projectcode+"/"+url);
-			
 		});
 		
 		$.post(context+"/createdName",
@@ -4151,9 +4199,7 @@ if(ver!=0){
 	    }
 			   
 	 $("#right_content,#right_content_modal").height($(".valid").height()-30);
-			 
-			 
-	    
+				    
 }});
 	
 }
@@ -4541,6 +4587,10 @@ function getCss(){
 		$(".bgsetting").css("opacity","1");
 		$(".bgsetting").css("filter","alpha(opacity=100)");
 		$(".css .css_row:last>div:first").removeClass("gray");
+		$(".css input:text:eq(4)").val(elements[sid].style.backgroundColor);
+		$(".css input:text:eq(0)").val(elements[sid].style.borderWidth);
+		$(".css input:text:eq(1)").val(elements[sid].style.borderColor);
+		$(".css input:text:eq(5)").val(elements[sid].style.paddingLeft);
 		 return ;
 	}
 	if(sid.indexOf("file_")!=-1){
@@ -4670,7 +4720,10 @@ function autoFormFactory(k,v){
 		
 		return ;
 	}
-    
+    if(k=="js"){
+    	 cm.setValue(utf8to16(base64decode(elements["js"])));
+    	return ;
+    }
 	if(k=="page"){
 		 
 		 $(".page .page_size:first").val(v.w);
@@ -6197,8 +6250,11 @@ $(".title_table_img,.title_table").click(function(e){
 $(".closeImg,.no").click(function(){
 $(this).parent().parent().slideUp("fast");
 });
- 
- $(".form_dialog,div[class$='_event_panel'],.eq_selected,.alert_selected,.tip_editor,.open_panel").draggable({
+$(".closeImg2").click(function(){
+	$(this).parent().parent().css("top","-800px");
+	$(this).parent().parent().css("left","-700px");
+	});
+ $(".form_dialog,div[class$='_event_panel'],.eq_selected,.alert_selected,.tip_editor,.open_panel,.js_panel").draggable({
  handle:".form_dialog_head",
  containment:document.body
  });

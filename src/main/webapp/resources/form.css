@@ -250,7 +250,7 @@ background-color:#232323;display:none;border:solid 6px #313131; position:absolut
 .tipicon_warn{
 	background-repeat:no-repeat;background-position:5px 7px;width:60px;height:60px;float:left;background-image:url(images/warn.png)
 }
-.open_panel,.img_event_panel,.ueditor_event_panel,.valid0_event_panel,.text_event_panel,.password_event_panel,.select_event_panel,.button_event_panel,.radio_event_panel,.checkbox_event_panel,.textarea_event_panel,.time_event_panel{
+.open_panel,.img_event_panel,.js_panel,.ueditor_event_panel,.valid0_event_panel,.text_event_panel,.password_event_panel,.select_event_panel,.button_event_panel,.radio_event_panel,.checkbox_event_panel,.textarea_event_panel,.time_event_panel{
 background-color:#232323;display:none;position:relative;border:solid 6px #232323;position:absolute;top:80px;left:360px;height:490px;width:500px; z-index:3;   
 }
 .gray{
@@ -478,7 +478,7 @@ cursor:default;background-color:#222;height:22px;font-size:13px;padding-left:10p
 .tid{
 font-size:12px;position:absolute;top:1px;left:2px;color:#A2A2A2
 }
-.closeImg{
+.closeImg,.closeImg2{
 width:20px;height:27px;float:right;background-repeat:no-repeat;background-image:url(images/close_small.png);background-position:0px 4px;
 }
 .tipcontent{
@@ -657,13 +657,22 @@ position:absolute;top:36px;left:456px;height:24px;font-size:12px;color:#a2a2a2;	
 	
 }
 .title_event_img{
-	cursor:default;position:absolute;top:14px;left:512px;width:24px;height:24px;background-repeat:no-repeat;background-image:url(images/event.png)
+	cursor:default;position:absolute;top:14px;left:552px;width:24px;height:24px;background-repeat:no-repeat;background-image:url(images/event.png)
 }
 .title_event_img2{
 	background-image:url(images/event2.png)
 }
+.title_js_img{
+	cursor:default;position:absolute;top:14px;left:510px;width:24px;height:24px;background-repeat:no-repeat;background-image:url(images/js.png)
+}
+.title_js_img2{
+	background-image:url(images/js2.png)
+}
 .title_event{
-	cursor:pointer;position:absolute;top:36px;left:510px;width:24px;height:24px;font-size:12px;color:#a2a2a2;
+	cursor:pointer;position:absolute;top:36px;left:550px;width:24px;height:24px;font-size:12px;color:#a2a2a2;
+}
+.title_js{
+	cursor:pointer;position:absolute;top:36px;left:509px;width:24px;height:24px;font-size:12px;color:#a2a2a2;
 }
 .title_tip_img{
 	cursor:default;position:absolute;top:14px;left:392px;width:24px;height:24px;background-repeat:no-repeat;background-image:url(images/tip.png)

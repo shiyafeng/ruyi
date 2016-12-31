@@ -49,7 +49,7 @@ a {
 4.支持url参数获取数据、http远程获取数据、数据库获取数据
 </div>
  <div style="color:#333333; position:absolute;top:325px;left:20px;font-size:16px;  ">
-5.提供页面加载、单击、双击、焦点等事件支持
+5.提供页面加载、单击、双击、焦点等事件支持，支持javascript
 </div>
  <div style="color:#333333; position:absolute;top:355px;left:20px;font-size:16px;  ">
 6.如意是首个拖拽控制组件位置和大小、支持颜色点选的<span class="code">强交互</span>表单设计器
@@ -258,16 +258,52 @@ R取return的首字母，即获取http请求的返回值，返回值分3种情�
 这里使用hidden来接收返回的结果，后面的程序再根据hidden的结果来决定后面的逻辑
 </div>
  <div style="color:#333333; position:absolute;top:4620px;left:20px;font-size:16px;  ">
-对于<span class="code">提示</span>和<span class="code">异常</span>对应的提示框样式可以在工具栏的<span class="code">提示</span>配置
+对于<span class="code">提示</span>和<span class="code">异常</span>对应的提示框样式可以在工具栏的<span class="code">提示</span>配置样式，默认将选择系统自带的alert函数
 </div>
-
- <div style="color:#333333; font-weight:bold;position:absolute;top:4650px;left:20px;font-size:16px;  ">
- 篇幅有限，更多细节期待你去探索
- </div>
- <div style="color:#333333; font-weight:bold;position:absolute;top:4680px;height:30px;left:20px;font-size:16px;  ">
-&nbsp;
- </div>
-
-
+ 
+ <img src="<%=request.getContextPath()%>/resources/helpimg/help14.png" style=" position:absolute;top:4650px;left:20px  ">
+ <div style="color:#333333; position:absolute;top:5060px;left:20px;font-size:16px;  ">
+ <span class="code">弹出页</span>和<span class="code">跳转</span>允许你在url中使用<span class="code">LUR</span>表达式
+</div>
+ <div style="color:#333333; position:absolute;top:5090px;left:20px;font-size:16px;  ">
+  条件之间可以嵌套，但是只能嵌套2层
+</div>
+ <hr color="#ccc" style="position:absolute;top:5130px;left:20px;height:1px;width:95%;">
+  
+<div style="color:#333333; position:absolute;top:5150px;left:20px;font-size:26px;  ">
+版本控制
+</div>
+<hr color="#ccc" style="position:absolute;top:5200px;left:20px;height:1px;width:95%;">
+ <div style="color:#333333; position:absolute;top:5220px;left:20px;font-size:16px;  ">
+ 一个项目可以有多个页面，一个页面可以有多个版本，默认将使用版本号最大的版本，如果你需要访问某个指定的版本，请在url最后加上版本号
+</div>
+ <div style="color:#333333; position:absolute;top:5250px;left:20px;font-size:16px;  ">
+如页面 <span class="code">esbBusiForm</span>的访问地址为 <span class="code">/ruyi/public/default/esbBusiForm</span>,指向版本号最大的版本
+</div>
+ <div style="color:#333333; position:absolute;top:5280px;left:20px;font-size:16px;  ">
+访问 <span class="code">esbBusiForm</span>的第6个版本，访问地址为 <span class="code">/ruyi/public/default/esbBusiForm/6</span>
+</div>
+ <div style="color:#333333; position:absolute;top:5310px;left:20px;font-size:16px;  ">
+单击页面左上角<span class="code">打开</span>，可以看到所有页面和版本，并可以 <span class="code">创建新页面</span>
+</div>
+ <img src="<%=request.getContextPath()%>/resources/helpimg/help15.png" style=" position:absolute;top:5340px;left:20px  ">
+  <div style="color:#333333; position:absolute;top:5590px;left:20px;font-size:16px;  ">
+单击页面左上角<span class="code">新版本</span>，可以为当前页面创建新版本，默认访问将始终指向最新的版本
+</div>
+  <hr color="#ccc" style="position:absolute;top:5630px;left:20px;height:1px;width:95%;">
+  
+<div style="color:#333333; position:absolute;top:5650px;left:20px;font-size:26px;  ">
+令牌
+</div>
+<hr color="#ccc" style="position:absolute;top:5700px;left:20px;height:1px;width:95%;">
+   <div style="color:#333333; position:absolute;top:5720px;left:20px;font-size:16px;  ">
+在你的项目中通过调用如意的接口，如<span class="code">/cyptoToken/1</span>，将获取token
+</div>
+   <div style="color:#333333; position:absolute;top:5750px;left:20px;font-size:16px;  ">
+该token有效时间为30分钟，采用基于DES改造的加密算法，不同系统的token生成方式不相同
+</div>
+  <div style="color:#333333; position:absolute;top:5780px;left:20px;font-size:16px;  ">
+ &nbsp;
+</div>
 </body>
 </html>

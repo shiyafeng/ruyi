@@ -2,9 +2,9 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.ustcinfo.lab</groupId>
-	<artifactId>lab</artifactId>
+	<artifactId>ruyi</artifactId>
 	<packaging>war</packaging>
-	<version>0.1</version>
+	<version>1.0.1</version>
 	<parent>
 		<groupId>com.ustcinfo</groupId>
 		<artifactId>usi-parent</artifactId>
@@ -13,9 +13,20 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.7</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongo-java-driver</artifactId>
+			<version>3.2.2</version>
+		</dependency>
+		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>com.oracle</groupId>
 			<artifactId>ojdbc6</artifactId>
@@ -24,7 +35,7 @@
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
-			<version>20090211</version>
+			<version>20151123</version>
 		</dependency>
 		<dependency>
 			<groupId>com.h2database</groupId>
@@ -122,7 +133,7 @@
 
 	</dependencies>
 	<build>
-		<finalName>lab</finalName>
+		<finalName>ruyi</finalName>
 
 		<plugins>
 			<plugin>

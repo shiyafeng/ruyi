@@ -8,7 +8,7 @@ public class SingleHttpClient {
 	private static DefaultHttpClient httpClient;
 	static {
 	 httpClient = new DefaultHttpClient(new ThreadSafeClientConnManager());
-	
+	 
 	}
 	 
 	public static DefaultHttpClient getInstance() {
