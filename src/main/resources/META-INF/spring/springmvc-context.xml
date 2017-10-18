@@ -23,8 +23,7 @@
 	<mvc:view-controller path="/noauth" view-name="noauth" />
 	<mvc:view-controller path="/outoftime" view-name="outoftime" />
 
-	<context:component-scan base-package="iform" />
-	<task:annotation-driven></task:annotation-driven>
+	<context:component-scan base-package="iform" /> 
 	<mvc:annotation-driven>
 		<mvc:message-converters register-defaults="false">
 			<bean
