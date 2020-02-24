@@ -1,6 +1,6 @@
 # 交互式表单设计器如意
 
-如意斩获2018 51CTO开发者大赛第2名
+如意斩获2018 51CTO开发者大赛[第2名](https://weibo.com/ttarticle/p/show?id=2309351002704256219299743718)
 
 如意是一款具有强交互性、支持业务逻辑设计的表单设计器，当前版本为1.0.1，官方宣传片：http://static.hdslb.com/miniloader.swf?aid=6841239&page=1
 
